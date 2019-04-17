@@ -1,3 +1,5 @@
+# Bot-Mail by SamyHussaein
+
 import os
 from email import encoders
 from email.mime.base import MIMEBase
@@ -25,10 +27,10 @@ def attach_file(message, attachment_file):
 
     return message
 
-def send_mail(expeditor_mail, destination_mail, subject, body, attachment_files, server):
+def send_mail(expeditor_mail, destination_mails, subject, body, attachment_files, server):
     message = MIMEMultipart()
     message['From'] = expeditor_mail
-    message['To'] = destination_mail
+    message['Bcc'] = ", ".join(destination_mails)
     message['Subject'] = subject
     message.attach(MIMEText(body, "plain"))
 
@@ -37,7 +39,7 @@ def send_mail(expeditor_mail, destination_mail, subject, body, attachment_files,
 
     text = message.as_string()
 
-    server.sendmail(expeditor_mail, destination_mail, text)
+    server.sendmail(expeditor_mail, destination_mails, text)
 
 def get_mail(filename):
     file = open(filename, "r", encoding='UTF-8')

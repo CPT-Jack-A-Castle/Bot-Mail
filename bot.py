@@ -26,10 +26,19 @@ to_addrs = get_mailing_list("test_mailing_list.txt")
 # List of files to include
 attachment_files = [""]
 
-# Sending mails one by one
-for mail in to_addrs:
-    print("Sending mail to", mail, flush=True)
-    send_mail(expeditor_mail, mail, subject, body, attachment_files, server)
+size = len(to_addrs) # Mailing list size
+i = 0
+pas = 100 # Number of mails to send at the same time
+
+while (i + pas) < size:
+    l = to_addrs[i:(i+pas)]
+    print("Sending mail to", len(l), "persons", flush=True)
+    send_mail(expeditor_mail, l, subject, body, attachment_files, server)
+    i += pas
+
+l = to_addrs[i:]
+print("Sending mail to", len(l), "persons", flush=True)
+send_mail(expeditor_mail, l, subject, body, attachment_files, server)
 
 print("All mails were sent")
 
