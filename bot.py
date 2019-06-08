@@ -24,7 +24,7 @@ subject, body = get_mail("mail.txt")
 to_addrs = get_mailing_list("test_mailing_list.txt")
 
 # List of files to include
-attachment_files = [""]
+attachment_files = []
 
 size = len(to_addrs) # Mailing list size
 i = 0
